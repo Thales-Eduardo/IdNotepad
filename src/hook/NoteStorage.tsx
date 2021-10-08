@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { api } from '../services/api';
 
 interface NoteProps {
   id: string;
@@ -9,9 +9,19 @@ interface NoteProps {
   urgent: boolean;
 }
 
+interface CreateNotepad {
+  title: string;
+  check: boolean;
+  immediate: boolean;
+  urgent: boolean;
+}
+
 interface AuthContextData {
-  addNote(newNote: NoteProps): Promise<void>;
+  notepad: NoteProps[];
+  addNote(newNote: CreateNotepad): Promise<void>;
   getNote(): Promise<any>;
+  deleteNote(id: string): Promise<void>;
+  updateNote(data: NoteProps): Promise<void>;
 }
 
 const NoteContext = createContext<AuthContextData>({} as AuthContextData);
@@ -20,33 +30,49 @@ export const IdNotepad: React.FC = ({ children }) => {
   const [data, setData] = useState<NoteProps[]>([]);
 
   async function getNote() {
-    const mynote = await AsyncStorage.getItem('@IdNotepad');
-    if (!mynote) {
-      return;
-    }
-    let noteSaves = JSON.parse(mynote) ?? [];
-    return noteSaves;
+    const response = await api.get('/post/find_all', {
+      params: {
+        page: 1,
+        limit: 10,
+      },
+    });
+    setData(response.data);
   }
 
-  async function addNote(newNote: NoteProps) {
-    console.log(newNote);
+  async function addNote(newNote: CreateNotepad) {
+    await api.post('/post', {
+      title: newNote.title,
+      check: newNote.check,
+      immediate: newNote.immediate,
+      urgent: newNote.urgent,
+    });
+    await getNote();
+  }
 
-    // let noteStorage = await getNote();
-    // const hasnote = noteStorage.some((note: any) => note.id === newNote.id);
-    // if (hasnote) return;
-    // noteStorage.push(newNote);
-    // await AsyncStorage.removeItem('@IdNotepad');
-    // await AsyncStorage.setItem(`@IdNotepad`, JSON.stringify(newNote));
+  async function deleteNote(id: string) {
+    await api.delete(`/post/delete/${id}`);
+    await getNote();
+  }
+
+  async function updateNote(data: NoteProps) {
+    await api.put(`/post/update/${data.id}`, {
+      check: data.check,
+      immediate: data.immediate,
+      urgent: data.urgent,
+    });
+    await getNote();
   }
 
   return (
-    <NoteContext.Provider value={{ addNote, getNote }}>
+    <NoteContext.Provider
+      value={{ notepad: data, addNote, getNote, deleteNote, updateNote }}
+    >
       {children}
     </NoteContext.Provider>
   );
 };
 
-export function useNoteStorage() {
+export function useNotepad() {
   const context = useContext(NoteContext);
   return context;
 }

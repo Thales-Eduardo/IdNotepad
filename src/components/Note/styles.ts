@@ -30,7 +30,6 @@ export const Content = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 10px;
-  padding: 0px 5px;
 `;
 
 export const Check = styled.TouchableOpacity``;

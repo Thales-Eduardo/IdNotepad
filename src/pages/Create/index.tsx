@@ -1,34 +1,35 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
-import { v4 as uuid } from 'uuid';
-import { useNoteStorage } from '../../hook/NoteStorage';
+import { useNotepad } from '../../hook/NoteStorage';
 
-import { Container } from './styles';
+import { Container, Content, Button, Ipunt, ButtonText } from './styles';
 
 export const Create: React.FC = () => {
-  const { addNote, getNote } = useNoteStorage();
+  const { addNote } = useNotepad();
 
-  useEffect(() => {
-    async function test() {
-      const dataNote = {
-        id: uuid(),
-        title: 'newNotedawdaw1',
-        check: false,
-        immediate: false,
-        urgent: false,
-      };
-
-      await addNote(dataNote);
-
-      const data = await getNote();
-      console.log(data);
-    }
-    test();
-  }, []);
+  async function handle(text: string) {
+    const dataNote = {
+      title: text,
+      check: false,
+      immediate: false,
+      urgent: false,
+    };
+    // await addNote(dataNote);
+  }
 
   return (
-    <View>
-      <Text>Create</Text>
-    </View>
+    <Container>
+      <Content>
+        <Ipunt
+          placeholder="Digite sua ideia ou tarefa"
+          autoCorrect={false}
+          autoCapitalize="none"
+          returnKeyType="next"
+        />
+        <Button>
+          <ButtonText>Entrar</ButtonText>
+        </Button>
+      </Content>
+    </Container>
   );
 };
