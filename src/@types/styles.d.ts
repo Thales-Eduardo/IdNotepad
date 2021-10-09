@@ -8,6 +8,7 @@ declare module 'styled-components' {
         orange: string;
         red: string;
         blue: string;
+        gray: string;
       };
 
       fontColor: {
@@ -15,6 +16,7 @@ declare module 'styled-components' {
         orange: string;
         red: string;
         blue: string;
+        white: string;
       };
     };
   }

@@ -4,11 +4,6 @@ export const Container = styled.ScrollView`
   padding: 15px;
 `;
 
-export const Title = styled.Text`
-  text-align: center;
-  font-size: 24px;
-`;
-
 export const Content = styled.View`
   flex-direction: row;
   justify-content: space-between;

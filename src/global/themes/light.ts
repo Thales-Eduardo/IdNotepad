@@ -5,6 +5,7 @@ export default {
       orange: '#FFD4AC',
       red: '#F8D2D2',
       blue: '#B7E2F9',
+      gray: '#5c5c5c',
     },
 
     fontColor: {
@@ -12,6 +13,7 @@ export default {
       orange: '#FF6B00',
       red: '#FE0303',
       blue: '#0A5E63',
+      white: '#fff',
     },
   },
 };

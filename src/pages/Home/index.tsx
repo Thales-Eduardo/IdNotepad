@@ -4,7 +4,6 @@ import { Note } from '../../components/Note';
 
 import {
   Container,
-  Title,
   Content,
   BoxPriority1,
   BoxImmediate,
@@ -25,7 +24,6 @@ import {
 export const Home: React.FC = () => {
   return (
     <Container>
-      <Title>Taferas & Ideias</Title>
       <Content>
         <BoxPriority1>
           <BoxImmediate>

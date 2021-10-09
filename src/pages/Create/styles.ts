@@ -12,23 +12,28 @@ export const Content = styled.View`
 export const Ipunt = styled.TextInput`
   width: 90%;
   height: 149px;
-  color: #000;
-  background: #c4c4c4;
+  color: ${(props) => props.theme.colors.fontColor.white};
+  background: ${(props) => props.theme.colors.background.gray};
   font-size: 18px;
   border-radius: 10px;
+  margin-top: 30px;
+  text-align: center;
+  padding: 10px;
 `;
 
 export const Button = styled.TouchableOpacity`
   width: 90%;
   height: 50px;
-  color: #000;
-  background: blueviolet;
+  background: ${(props) => props.theme.colors.background.gray};
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius: 10px;
-
   align-items: center;
   justify-content: center;
 `;
 
-export const ButtonText = styled.Text``;
+export const ButtonText = styled.Text`
+  font-size: 21px;
+  font-weight: bold;
+  color: ${(props) => props.theme.colors.fontColor.white};
+`;

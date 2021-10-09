@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import light from './src/global/themes/light';
 import { Routes } from './src/routes';
 
-import { IdNotepad } from './src/hook/NoteStorage';
+import { IdNotepad } from './src/hook/UseNote';
 
 export default function App() {
   return (
