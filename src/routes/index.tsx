@@ -1,6 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, FontAwesome5, AntDesign, Entypo } from '@expo/vector-icons';
+import {
+  Ionicons,
+  AntDesign,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 
 import { Create } from '../pages/Create';
 import { Home } from '../pages/Home';
@@ -15,7 +19,7 @@ export const Routes: React.FC = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#7fc588',
+        tabBarActiveTintColor: '#f8f8f8',
         tabBarInactiveTintColor: '#f8f8f8',
         tabBarStyle: {
           paddingBottom: 5,
@@ -32,10 +36,9 @@ export const Routes: React.FC = () => {
           tabBarLabel: 'Home',
           tabBarIcon: ({ size, color, focused }) => (
             <Ionicons
-              name="home-sharp"
+              name={focused ? 'home' : 'home-outline'}
               color={color}
               size={size}
-              focused={focused}
             />
           ),
         }}
@@ -46,11 +49,10 @@ export const Routes: React.FC = () => {
         options={{
           tabBarLabel: 'Immediate',
           tabBarIcon: ({ size, color, focused }) => (
-            <FontAwesome5
-              name="fire"
-              size={size}
+            <Ionicons
+              name={focused ? 'rocket' : 'rocket-outline'}
               color={color}
-              focused={focused}
+              size={size}
             />
           ),
         }}
@@ -62,10 +64,9 @@ export const Routes: React.FC = () => {
           tabBarLabel: 'Create',
           tabBarIcon: ({ size, color, focused }) => (
             <AntDesign
-              name="pluscircle"
+              name={focused ? 'pluscircle' : 'pluscircleo'}
               size={size}
               color={color}
-              focused={focused}
             />
           ),
         }}
@@ -76,7 +77,11 @@ export const Routes: React.FC = () => {
         options={{
           tabBarLabel: 'Urgent',
           tabBarIcon: ({ size, color, focused }) => (
-            <Entypo name="bell" size={size} color={color} focused={focused} />
+            <MaterialCommunityIcons
+              name={focused ? 'bell-ring' : 'bell-ring-outline'}
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -87,7 +92,7 @@ export const Routes: React.FC = () => {
           tabBarLabel: 'Check',
           tabBarIcon: ({ size, color, focused }) => (
             <AntDesign
-              name="checkcircle"
+              name={focused ? 'checkcircle' : 'checkcircleo'}
               size={size}
               color={color}
               focused={focused}
