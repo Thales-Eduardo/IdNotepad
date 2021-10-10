@@ -50,7 +50,7 @@ export const Create: React.FC = () => {
           {!loading ? (
             <ButtonText>Criar</ButtonText>
           ) : (
-            <ButtonText>Criamdo</ButtonText>
+            <ButtonText>Criando...</ButtonText>
           )}
         </Button>
       </Content>

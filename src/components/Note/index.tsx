@@ -1,5 +1,11 @@
 import React from 'react';
-import { AntDesign, FontAwesome5, Entypo } from '@expo/vector-icons';
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  Ionicons,
+} from '@expo/vector-icons';
+
+import { useNotepad } from '../../hook/UseNote';
 
 import {
   Container,
@@ -21,36 +27,82 @@ interface Props {
   urgent: boolean;
 }
 
-export const Note: React.FC = () => {
+interface NoteProps {
+  data: Props;
+}
+
+export const Note: React.FC<NoteProps> = ({ data }) => {
+  const { deleteNote, updateNote } = useNotepad();
+
+  async function deleteNotepad(id: string) {
+    await deleteNote(id);
+  }
+
+  async function updateCheck(data: any) {
+    const update: any = {
+      id: data.id,
+      title: data.title,
+      check: true,
+      immediate: false,
+      urgent: false,
+    };
+    await updateNote(update);
+  }
+
+  async function updateUrgent(data: any) {
+    const update: any = {
+      id: data.id,
+      title: data.title,
+      check: false,
+      immediate: false,
+      urgent: true,
+    };
+    await updateNote(update);
+  }
+
+  async function updateImmediate(data: any) {
+    const update: any = {
+      id: data.id,
+      title: data.title,
+      check: false,
+      immediate: true,
+      urgent: false,
+    };
+    await updateNote(update);
+  }
+
   return (
-    <Container>
-      <ButtonClose>
+    <Container
+      check={data.check}
+      immediate={data.immediate}
+      urgent={data.urgent}
+    >
+      <ButtonClose onPress={() => deleteNotepad(data.id)}>
         <AntDesign name="close" size={24} color="#fff" />
       </ButtonClose>
 
       <NoteView>
-        <NoteText>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi eveniet
-          ducimus excepturi voluptatum iusto reprehenderit possimus vel, facilis
-          iste quasi quia aut ex suscipit tenetur architecto rem nam ab animi?
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi eveniet
-          ducimus excepturi voluptatum iusto reprehenderit possimus vel, facilis
-          iste quasi quia aut ex suscipit tenetur architecto rem nam ab animi?
+        <NoteText
+          check={data.check}
+          immediate={data.immediate}
+          urgent={data.urgent}
+        >
+          {data.title}
         </NoteText>
       </NoteView>
 
       <Content>
-        <Check>
+        <Check onPress={() => updateCheck(data)}>
           <AntDesign name="checkcircle" size={24} color="#fff" />
         </Check>
 
         <Priority>
-          <ImmediateButton>
-            <FontAwesome5 name="fire" size={24} color="#fff" />
+          <ImmediateButton onPress={() => updateUrgent(data)}>
+            <Ionicons name="rocket" size={24} color="#fff" />
           </ImmediateButton>
 
-          <UrgentButton>
-            <Entypo name="bell" size={24} color="#fff" />
+          <UrgentButton onPress={() => updateImmediate(data)}>
+            <MaterialCommunityIcons name="bell-ring" size={24} color="#fff" />
           </UrgentButton>
         </Priority>
       </Content>

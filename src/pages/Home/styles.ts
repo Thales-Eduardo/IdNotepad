@@ -1,10 +1,11 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   padding: 15px;
 `;
 
-export const Content = styled.View`
+export const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
@@ -91,4 +92,8 @@ export const CheckText = styled.Text`
   font-size: 17px;
   color: ${(props) => props.theme.colors.fontColor.green};
   font-weight: bold;
+`;
+
+export const IdNotepad = styled(FlatList as new () => FlatList)`
+  margin-bottom: 120px;
 `;

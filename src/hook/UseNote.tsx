@@ -19,7 +19,7 @@ interface CreateNotepad {
 interface AuthContextData {
   notepad: NoteProps[];
   addNote(newNote: CreateNotepad): Promise<void>;
-  getNote(): Promise<any>;
+  getNote(page: number): Promise<any>;
   deleteNote(id: string): Promise<void>;
   updateNote(data: NoteProps): Promise<void>;
 }
@@ -28,15 +28,17 @@ const NoteContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const IdNotepad: React.FC = ({ children }) => {
   const [data, setData] = useState<NoteProps[]>([]);
+  const [skip, setPage] = useState(1);
 
-  async function getNote() {
+  async function getNote(page: number) {
+    setPage(page);
     const response = await api.get('/post/find_all', {
       params: {
-        page: 1,
+        page: page,
         limit: 10,
       },
     });
-    setData(response.data);
+    setData([...data, ...response.data]);
   }
 
   async function addNote(newNote: CreateNotepad) {
@@ -46,21 +48,21 @@ export const IdNotepad: React.FC = ({ children }) => {
       immediate: newNote.immediate,
       urgent: newNote.urgent,
     });
-    await getNote();
+    await getNote(skip);
   }
 
   async function deleteNote(id: string) {
     await api.delete(`/post/delete/${id}`);
-    await getNote();
+    await getNote(skip);
   }
 
-  async function updateNote(data: NoteProps) {
+  async function updateNote(data: any) {
     await api.put(`/post/update/${data.id}`, {
       check: data.check,
       immediate: data.immediate,
       urgent: data.urgent,
     });
-    await getNote();
+    await getNote(skip);
   }
 
   return (

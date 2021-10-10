@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Note } from '../../components/Note';
+import { FooterList } from '../../components/FooterList';
+
+import { useNotepad } from '../../hook/UseNote';
 
 import {
   Container,
-  Content,
+  Header,
   BoxPriority1,
   BoxImmediate,
   Immediate,
@@ -19,12 +22,29 @@ import {
   BoxCheck,
   Check,
   CheckText,
+  IdNotepad,
 } from './styles';
 
 export const Home: React.FC = () => {
+  const { notepad, getNote } = useNotepad();
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getIdNotepad();
+  }, []);
+
+  async function getIdNotepad() {
+    if (loading) return;
+    setLoading(true);
+    await getNote(page);
+    setPage(page + 1);
+    setLoading(false);
+  }
+
   return (
     <Container>
-      <Content>
+      <Header>
         <BoxPriority1>
           <BoxImmediate>
             <Immediate>
@@ -52,8 +72,16 @@ export const Home: React.FC = () => {
             </Check>
           </BoxCheck>
         </BoxPriority2>
-      </Content>
-      <Note />
+      </Header>
+
+      <IdNotepad
+        data={notepad}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <Note data={item} />}
+        onEndReached={getIdNotepad}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={<FooterList load={loading} />}
+      />
     </Container>
   );
 };

@@ -1,10 +1,35 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled.View`
+interface Props {
+  check?: boolean;
+  immediate?: boolean;
+  urgent?: boolean;
+}
+
+export const Container = styled.View<Props>`
   width: 100%;
   padding: 10px 10px;
-  background: ${(props) => props.theme.colors.background.blue};
   border-radius: 10px;
+  margin-top: 10px;
+  background: ${(props) => props.theme.colors.background.blue};
+
+  ${(props) =>
+    props.check &&
+    css`
+      background: ${(props) => props.theme.colors.background.green};
+    `}
+
+  ${(props) =>
+    props.immediate &&
+    css`
+      background: ${(props) => props.theme.colors.background.red};
+    `}
+
+  ${(props) =>
+    props.urgent &&
+    css`
+      background: ${(props) => props.theme.colors.background.orange};
+    `}
 `;
 
 export const ButtonClose = styled.TouchableOpacity`
@@ -21,9 +46,27 @@ export const NoteView = styled.ScrollView.attrs({
   width: 100%;
 `;
 
-export const NoteText = styled.Text`
-  color: ${(props) => props.theme.colors.fontColor.blue};
+export const NoteText = styled.Text<Props>`
   font-size: 18px;
+  color: ${(props) => props.theme.colors.fontColor.blue};
+
+  ${(props) =>
+    props.check &&
+    css`
+      background: ${(props) => props.theme.colors.fontColor.green};
+    `}
+
+  ${(props) =>
+    props.immediate &&
+    css`
+      background: ${(props) => props.theme.colors.fontColor.red};
+    `}
+
+  ${(props) =>
+    props.urgent &&
+    css`
+      background: ${(props) => props.theme.colors.fontColor.orange};
+    `}
 `;
 
 export const Content = styled.View`
