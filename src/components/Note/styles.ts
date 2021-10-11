@@ -53,19 +53,19 @@ export const NoteText = styled.Text<Props>`
   ${(props) =>
     props.check &&
     css`
-      background: ${(props) => props.theme.colors.fontColor.green};
+      color: ${(props) => props.theme.colors.fontColor.green};
     `}
 
   ${(props) =>
     props.immediate &&
     css`
-      background: ${(props) => props.theme.colors.fontColor.red};
+      color: ${(props) => props.theme.colors.fontColor.red};
     `}
 
   ${(props) =>
     props.urgent &&
     css`
-      background: ${(props) => props.theme.colors.fontColor.orange};
+      color: ${(props) => props.theme.colors.fontColor.orange};
     `}
 `;
 

@@ -39,36 +39,75 @@ export const Note: React.FC<NoteProps> = ({ data }) => {
   }
 
   async function updateCheck(data: any) {
-    const update: any = {
-      id: data.id,
-      title: data.title,
-      check: true,
-      immediate: false,
-      urgent: false,
-    };
-    await updateNote(update);
+    if (data.check === false) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: true,
+        immediate: false,
+        urgent: false,
+      };
+      await updateNote(update);
+    }
+
+    if (data.check === true) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: false,
+        immediate: false,
+        urgent: false,
+      };
+      await updateNote(update);
+    }
   }
 
   async function updateUrgent(data: any) {
-    const update: any = {
-      id: data.id,
-      title: data.title,
-      check: false,
-      immediate: false,
-      urgent: true,
-    };
-    await updateNote(update);
+    if (data.urgent === false) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: false,
+        immediate: false,
+        urgent: true,
+      };
+      await updateNote(update);
+    }
+
+    if (data.urgent === true) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: false,
+        immediate: false,
+        urgent: false,
+      };
+      await updateNote(update);
+    }
   }
 
   async function updateImmediate(data: any) {
-    const update: any = {
-      id: data.id,
-      title: data.title,
-      check: false,
-      immediate: true,
-      urgent: false,
-    };
-    await updateNote(update);
+    if (data.immediate === false) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: false,
+        immediate: true,
+        urgent: false,
+      };
+      await updateNote(update);
+    }
+
+    if (data.immediate === true) {
+      const update: any = {
+        id: data.id,
+        title: data.title,
+        check: false,
+        immediate: false,
+        urgent: false,
+      };
+      await updateNote(update);
+    }
   }
 
   return (
@@ -97,11 +136,11 @@ export const Note: React.FC<NoteProps> = ({ data }) => {
         </Check>
 
         <Priority>
-          <ImmediateButton onPress={() => updateUrgent(data)}>
+          <ImmediateButton onPress={() => updateImmediate(data)}>
             <Ionicons name="rocket" size={24} color="#fff" />
           </ImmediateButton>
 
-          <UrgentButton onPress={() => updateImmediate(data)}>
+          <UrgentButton onPress={() => updateUrgent(data)}>
             <MaterialCommunityIcons name="bell-ring" size={24} color="#fff" />
           </UrgentButton>
         </Priority>

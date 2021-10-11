@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from 'react';
+import React, { useState, createContext, useContext, useCallback } from 'react';
 import { api } from '../services/api';
 
 interface NoteProps {
@@ -41,29 +41,36 @@ export const IdNotepad: React.FC = ({ children }) => {
     setData([...data, ...response.data]);
   }
 
-  async function addNote(newNote: CreateNotepad) {
+  const addNote = useCallback(async (newNote: CreateNotepad) => {
     await api.post('/post', {
       title: newNote.title,
       check: newNote.check,
       immediate: newNote.immediate,
       urgent: newNote.urgent,
     });
-    await getNote(skip);
-  }
+    data.splice(0, data.length);
+    setData(data);
+    await getNote(1);
+  }, []);
 
-  async function deleteNote(id: string) {
+  const deleteNote = useCallback(async (id: string) => {
     await api.delete(`/post/delete/${id}`);
-    await getNote(skip);
-  }
+    data.splice(0, data.length);
+    setData(data);
+    await getNote(1);
+  }, []);
 
-  async function updateNote(data: any) {
-    await api.put(`/post/update/${data.id}`, {
-      check: data.check,
-      immediate: data.immediate,
-      urgent: data.urgent,
+  const updateNote = useCallback(async (update: any) => {
+    await api.put(`/post/update/${update.id}`, {
+      check: update.check,
+      immediate: update.immediate,
+      urgent: update.urgent,
     });
-    await getNote(skip);
-  }
+
+    data.splice(0, data.length);
+    setData(data);
+    await getNote(1);
+  }, []);
 
   return (
     <NoteContext.Provider
