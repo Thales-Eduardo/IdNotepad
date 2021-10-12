@@ -4,7 +4,7 @@
 
 Esse projeto bloco de notas, é para anotar algumas tarefas e colocar prioridades na hora de executar simbolizando as prioridades com as cores.
 
-![Home](./docs/idnotepad.png)
+![Home](./docs/home.png)
 
 ---
 
