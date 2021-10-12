@@ -4,7 +4,7 @@
 </div>
 
 <p align="center">
-Esse projeto bloco de notas, é para anotar algumas tarefas e colocar
+Esse projeto `IdNotepad`, é para anotar algumas tarefas e colocar
 prioridades na hora de executar simbolizando as prioridades com as cores.
 </p>
 
