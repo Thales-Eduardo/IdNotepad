@@ -6,6 +6,7 @@ export default {
       red: '#F8D2D2',
       blue: '#B7E2F9',
       gray: '#5c5c5c',
+      white: '#f8f8f8',
     },
 
     fontColor: {

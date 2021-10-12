@@ -3,6 +3,7 @@ import { FlatList } from 'react-native';
 
 export const Container = styled.View`
   padding: 15px;
+  background: ${(props) => props.theme.colors.background.white};
 `;
 
 export const Header = styled.View`

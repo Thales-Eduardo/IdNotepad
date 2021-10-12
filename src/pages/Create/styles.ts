@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ScrollView`
   padding: 10px;
+  background: ${(props) => props.theme.colors.background.white};
 `;
 
 export const Content = styled.View`
