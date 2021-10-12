@@ -26,6 +26,7 @@ export const Create: React.FC = () => {
       };
       await addNote(dataNote);
       setLoading(false);
+      setInput('');
     } catch {
       Alert.alert('Erro, tente novamente!');
       setLoading(false);
