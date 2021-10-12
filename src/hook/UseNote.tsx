@@ -28,10 +28,8 @@ const NoteContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const IdNotepad: React.FC = ({ children }) => {
   const [data, setData] = useState<NoteProps[]>([]);
-  const [skip, setPage] = useState(1);
 
   async function getNote(page: number) {
-    setPage(page);
     const response = await api.get('/post/find_all', {
       params: {
         page: page,
